@@ -1,16 +1,21 @@
 def caesar_cipher(text, shift):
-    alphabet = {'a': 'f', 'b': 'g', 'c': 'h', 'd': 'i', 'e': 'j', 'f': 'k', 'g': 'l', 'h': 'm',
-                'i': 'n', 'j': 'o', 'k': 'p', 'l': 'q', 'm': 'r', 'n': 's', 'o': 't', 'p': 'u',
-                'q': 'v', 'r': 'w', 's': 'x', 't': 'y', 'u': 'z', 'v': 'a', 'w': 'b', 'x': 'c',
-                'y': 'd', 'z': 'e'}
-
     encrypted_text = ""
     for char in text:
-        encrypted_text += alphabet.get(char, char)
+        if char.isalpha():
+            # Determine the base of the alphabet (uppercase or lowercase)
+            base = ord('A') if char.upper() else ord('a')
+            # Apply the Caesar cipher shift
+            encrypted_char = chr((ord(char) - base + shift) % 26 + base)
+            encrypted_text += encrypted_char
+        else:
+            encrypted_text += char
     return encrypted_text
 
-text = "python is fun!"
-shift = 5
-encrypted_text = caesar_cipher(text, shift)
-print("Original:", text)
-print("Encrypted:", encrypted_text)
+# Prompt the user for a plain text sentence
+sentence = input("Please enter a sentence: ")
+
+# Encrypt the sentence using Caesar cipher with a shift of 5
+encrypted_sentence = caesar_cipher(sentence, 5)
+
+# Print the encrypted sentence
+print("The encrypted sentence is:", encrypted_sentence)
